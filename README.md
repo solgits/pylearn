@@ -1,2 +1,2 @@
-# solpy
+# pylearn
 Python Programming &amp; Samples
