@@ -1,0 +1,17 @@
+[ OpenCV ]
+Open Source Computer Vision Library
+
+pip install opencv-python
+
+import cv2
+
+
+(github.com)
+https://github.com/opencv/opencv
+data/haarcascades/*.xml
+
+(얼굴인식)
+data/haarcascades/haarcascade_frontalface_default.xml
+
+(눈인식)
+data/haarcascades/haarcascade_frontalface_eye.xml
