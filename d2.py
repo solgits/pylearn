@@ -1,46 +1,55 @@
 import tkinter as tk
-from crawl1_todaync import crawl1
-from crawl2_poplin1 import crawl2
-from crawl3_hbking import crawl3
-from crawl4_gamezone import crawl4
-from crawl5_linpop2023 import crawl5
-from crawl0_nowdia2 import crawl_hongbo
+from chromedriver import generate_chrome
+from crawl1 import crawl1
+from crawlt import crawlt
 
 def crawl(idx):
     cur_url = idx
+    driver = generate_chrome(False)
+    driver.maximize_window()
+    driver.implicitly_wait(5)
     if idx == 0:
-        cur_url = crawl1(False)
+        cur_url = crawlt(driver, False, -1)
     elif idx == 1:
-        cur_url = crawl2(False)
+        cur_url = crawlt(driver, False, -1)
     elif idx == 2:
-        cur_url = crawl3(False)
+        cur_url = crawlt(driver, False, -1)
     elif idx == 3:
-        cur_url = crawl4(False)
+        cur_url = crawlt(driver, False, -1)
     elif idx == 4:
-        cur_url = crawl5(False)
+        cur_url = crawlt(driver, False, -1)
     
     text.insert(tk.END,"{}. {}\n".format(idx+1,cur_url))
+
+    driver.quit()
 
     return
 
 def crawlAll(idx):
-    for i in range(idx): 
-        crawl(i)
+    text.delete("0.0","end")
 
-    writeEvent()
+    driver = generate_chrome(False)
+    # 창최대화
+    driver.maximize_window()
+    # 5초대기
+    driver.implicitly_wait(5)
+
+    # 탭별크롤링
+    for i in range(idx): 
+        driver.execute_script('window.open("about:blank", "_blank");')
+        cur_url = crawlt(driver, False, i)
+        text.insert(tk.END,"{}. {}\n".format(i+1,cur_url))
+
+    driver.quit()
+    #writeEvent()
     return
 
 def writeEvent():
-    #text.insert(tk.END,"{}. {}\n".format(1,"https://todaync.com/bbs/board.php?bo_table=hongbo_diablo&wr_id=17056"))
-    #text.insert(tk.END,"{}. {}\n".format(2,"https://poplin1.xyz/bbs/board.php?bo_table=0304&wr_id=2355"))
-    #text.insert(tk.END,"{}. {}\n".format(3,"https://hb-king.xyz/index.php?mid=GAMES&document_srl=255517"))
-    #text.insert(tk.END,"{}. {}\n".format(4,"http://gamezone.live/index.php?mid=board_WLoA38&document_srl=12374892"))
-    #text.insert(tk.END,"{}. {}\n".format(5,"http://www.linpop2023.com/bbs/board.php?bo_table=d_game&wr_id=3581"))
-    
+   
     if text.get(5.0, 5.1) == '5':
         result = text.get(1.0, tk.END+"-1c")
-        cur_url = crawl_hongbo(False,result)
-        print(cur_url)
+        #cur_url = crawl_hongbo(False,result)
+        #print(cur_url)
     
     return
 
@@ -81,4 +90,3 @@ text.place(x=10 , y=350, width=550, height=100)
 # root.pack(padx=100)
 
 root.mainloop()
-    
