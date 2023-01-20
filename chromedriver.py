@@ -27,18 +27,18 @@ def generate_chrome(
         options.add_argument('--headless') # 창숨기기
         options.add_argument('--disable-gpu') # 그래픽가속끄기
         options.add_argument('--disable-software-rasterizer') # 
-    options.add_experimental_option('prefs', {
-        'download.prompt_for_download': False,
-        "download.directory_upgrade": True,
-        "safebrowsing.enabled": True,
-        "hide_console": True
+        options.add_experimental_option('prefs', {
+            'download.prompt_for_download': False,
+            "download.directory_upgrade": True,
+            "safebrowsing.enabled": True,
+            "hide_console": True
     })
     options.add_argument('--disable-extensions') # 크롬확장 비활성화
     
     chrome_ver = chromedriver_autoinstaller.get_chrome_version().split('.')[0]  #크롬드라이버 버전 확인
-
+    print(chrome_ver)
     try:
-        chrome = webdriver.Chrome(f'./{chrome_ver}/chromedriver.exe', options=options)   
+        chrome = webdriver.Chrome(f'./{chrome_ver}/chromedriver.exe', options=options)
     except:
         chromedriver_autoinstaller.install('./')
         chrome = webdriver.Chrome(f'./{chrome_ver}/chromedriver.exe', options=options)
@@ -48,9 +48,8 @@ def generate_chrome(
     
     return chrome
 
-'''
 try:
-    generate_chrome(False)
+    #generate_chrome(False)
+    pass
 except Exception as e:
     print(e)
-'''
